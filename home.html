@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="source.js"></script>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <header>
+            <h1>The University Website</h1>
+            <p>A simple website for user and course management</p>
+        </header>
+        <nav>
+            <a onclick="sendReq('home')">Home</a>
+            <a onclick="sendReq('create_user')">Create user</a>
+            <a onclick="sendReq('login')">Login</a>
+            <a onclick="sendReq('view')">View courses</a>
+        </nav>
+        <div>
+            <p>This is the homepage of the University system. It has two modules:<ul>
+                <li>User<ul>
+                    <li>Create user</li>
+                    <li>Login/logout</li>
+                    <li>Sessions</li>
+                </ul></li>
+                <li>Course<ul>
+                    <li>Course management (admin only)</li>
+                    <li>Course enrollment (student only)</li>
+                    <li>View course</li>
+                </ul></li>
+            </ul></p>
+        </div>
+        <footer>
+            &copy; Copyright CSc 337
+        </footer>
+    </body>
+</html>

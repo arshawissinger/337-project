@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="source.js"></script>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body onload="getCourses()">
+        <header>
+            <h1>The University Website</h1>
+            <p>A simple website for user and course management</p>
+        </header>
+        <nav>
+            <a onclick="sendReq('home')">Home</a>
+            <a onclick="sendReq('create_user')">Create user</a>
+            <a onclick="sendReq('login')">Login</a>
+            <a onclick="sendReq('view')">View courses</a>
+        </nav>
+        <div>
+            <p id="my_p">List of courses ...</p>
+        </div>
+        <footer>
+            &copy; Copyright CSc 337
+        </footer>
+    </body>
+</html>
