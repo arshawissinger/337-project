@@ -1,4 +1,3 @@
-
 function storeUser(){
     var username = document.getElementById('username').value
     window.localStorage.setItem('username', username)
@@ -14,6 +13,11 @@ function updateUrls()
             alist[i].href += par
         }
     }
+}
+function switchTheme(theme){
+    var url = new URL(document.URL)
+    url.searchParams.set('theme', theme)
+    document.location.href = url
 }
 function sendReq(url){
     var username = window.localStorage.getItem('username')
@@ -45,7 +49,6 @@ function getCourses(){
         return res.json()
     })
     .then(function(docs){
-        //console.log(docs)
         var p = document.getElementById('my_p')
         p.innerHTML = JSON.stringify(docs)
     })
