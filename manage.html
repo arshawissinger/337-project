@@ -2,7 +2,7 @@
 <html>
     <head>
         <script src="source.js"></script>
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="style1.css">
     </head>
     <body>
         <header>
@@ -13,6 +13,12 @@
             <a onclick="sendReq('home')">Home</a>
             <a onclick="sendReq('create_user')">Create user</a>
             <a onclick="sendReq('login')">Login</a>
+            <a onclick="sendReq('view')">View courses</a>
+            <select onchange="switchTheme(this.value)" style="margin-left: 15px;">
+                <option value="style1.css">Light</option>
+                <option value="style2.css">Dark</option>
+                <option value="style3.css">Random</option>
+            </select>
         </nav>
         <div>
             <form method="POST" action="mng_action">
