@@ -50,11 +50,17 @@ function checkAdmin(username){
 
 var publicFolder = path.join(__dirname, '/')
 
-app.get('/home', function(req, res){
+app.get('/', function(req, res){
     res.sendFile(path.join(publicFolder, 'home.html'))
 })
-app.get('/style.css', function(req, res){
-    res.sendFile(path.join(publicFolder, 'style.css'))
+app.get('/style1.css', function(req, res){
+    res.sendFile(path.join(publicFolder, 'style1.css'))
+})
+app.get('/style2.css', function(req, res){
+    res.sendFile(path.join(publicFolder, 'style2.css'))
+})
+app.get('/style3.css', function(req, res){
+    res.sendFile(path.join(publicFolder, 'style3.css'))
 })
 app.post('/home', express.json(), function(req, res){
     if(checkAdmin(req.body.username)){
@@ -69,14 +75,16 @@ function findPromise(){
     // TODO
 }
 
+function insertPromise(){
+    // TODO
+}
+
 app.post('/manage', express.json(), function(req, res){
     if(checkAdmin(req.body.username)){
         res.sendFile(path.join(publicFolder, 'manage.html'))
     }
 })
 app.post('/mng_action', express.urlencoded({'extended':true}), function(req, res){
-
-
     try{
         var courseDoc = {
             'courseid':req.body.courseid,
@@ -86,8 +94,8 @@ app.post('/mng_action', express.urlencoded({'extended':true}), function(req, res
         insertPromise('courses', courseDoc)
     }catch(err){
         console.log(err)
+        return;
     }
-
     res.send('Inserting the course ...')
 })
 app.post('/view', express.urlencoded({'extended':true}), function(req, res){
@@ -98,6 +106,27 @@ app.get('/getCourses', function(req, res){
 })
 app.get('/source.js', function(req, res){
     res.sendFile(path.join(publicFolder, 'source.js'))
+})
+app.get('/:page', (req,res)=>{
+    var page = req.params.page
+    if (!page){
+        console.log("Page does not exist");
+        return;
+    }
+    if (!req.query.theme){
+        var theme = 'style1.css'
+    } else {
+        var theme = req.query.theme
+    }
+    var file = path.join(publicFolder, `${page}.html`)
+    fs.readFile(file, 'utf8', (err,html)=>{
+        if (err){
+            console.log(err)
+            return;
+        }
+        html = html.replace('style1.css',theme)
+        res.send(html);
+    })
 })
 app.post('/create_user', express.json(), function(req, res){
     res.sendFile(path.join(publicFolder, 'create_user.html'))
