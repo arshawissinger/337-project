@@ -14,10 +14,12 @@ function updateUrls()
         }
     }
 }
-function switchTheme(theme){
-    var url = new URL(document.URL)
-    url.searchParams.set('theme', theme)
-    document.location.href = url
+function switchTheme(theme) {
+    var link = document.getElementsByTagName('link')[0]
+    if (link){
+        link.href=theme
+    }
+    localStorage.setItem('theme', theme)
 }
 function sendReq(url){
     var username = window.localStorage.getItem('username')
