@@ -53,6 +53,9 @@ var publicFolder = path.join(__dirname, '/')
 app.get('/', function(req, res){
     res.sendFile(path.join(publicFolder, 'home.html'))
 })
+app.get('/home', function(req, res){
+    res.sendFile(path.join(publicFolder, 'home.html'))
+})
 app.get('/style1.css', function(req, res){
     res.sendFile(path.join(publicFolder, 'style1.css'))
 })
@@ -69,6 +72,12 @@ app.post('/home', express.json(), function(req, res){
     else{
         res.sendFile(path.join(publicFolder, 'home.html'))
     }
+})
+app.get('/getCourses', function(req, res){
+    // TODO
+})
+app.get('/source.js', function(req, res){
+    res.sendFile(path.join(publicFolder, 'source.js'))
 })
 
 function findPromise(){
@@ -101,33 +110,6 @@ app.post('/mng_action', express.urlencoded({'extended':true}), function(req, res
 app.post('/view', express.urlencoded({'extended':true}), function(req, res){
     res.sendFile(path.join(publicFolder, 'view.html'))
 })
-app.get('/getCourses', function(req, res){
-    // TODO
-})
-app.get('/source.js', function(req, res){
-    res.sendFile(path.join(publicFolder, 'source.js'))
-})
-app.get('/:page', (req,res)=>{
-    var page = req.params.page
-    if (!page){
-        console.log("Page does not exist");
-        return;
-    }
-    if (!req.query.theme){
-        var theme = 'style1.css'
-    } else {
-        var theme = req.query.theme
-    }
-    var file = path.join(publicFolder, `${page}.html`)
-    fs.readFile(file, 'utf8', (err,html)=>{
-        if (err){
-            console.log(err)
-            return;
-        }
-        html = html.replace('style1.css',theme)
-        res.send(html);
-    })
-})
 app.post('/create_user', express.json(), function(req, res){
     res.sendFile(path.join(publicFolder, 'create_user.html'))
 })
@@ -159,3 +141,4 @@ app.post('/lgn_action', express.urlencoded({'extended':true}), function(req, res
 })
 
 app.listen(3000, function(){})
+
