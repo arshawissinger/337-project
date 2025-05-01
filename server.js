@@ -6,7 +6,7 @@ var app = express()
 
 function loadUsers(){
     try{
-        var users = fs.readFileSync('users.txt', {'encoding':'utf8'})
+        var users = fs.readFileSync(path.resolve(__dirname, 'users.txt'), {'encoding':'utf8'})
         var userList2 = users.split('\n')
         var result = []
         for(var i=0;i<userList2.length-1;i++)
