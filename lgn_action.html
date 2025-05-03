@@ -14,6 +14,10 @@
         </script>
     </head>
     <body>
+        <header>
+            <h1>The University Website</h1>
+            <p>A website for user and course management</p>
+        </header>
         <nav>
             <a onclick="sendReq('home')">Home</a>
             <a onclick="sendReq('create_user')">Create user</a>
@@ -21,12 +25,13 @@
             <select onchange="switchTheme(this.value)" style="margin-left: 15px;">
                 <option value="style1.css">Light</option>
                 <option value="style2.css">Dark</option>
-                <option value="style3.css">Random</option>
+                <option value="style3.css">UofA</option>
             </select>
         </nav>
         <body>
-            <p>Welcome <script>document.write(window.localStorage.getItem('username'))</script>!</p>
+            <div>
+                <p>Welcome <script>document.write(window.localStorage.getItem('username'))</script>!</p>
+            </div>
         </body>
     </body>
 </html>
-
