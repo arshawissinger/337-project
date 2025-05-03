@@ -9,17 +9,16 @@ h1{
 }
 body{
     margin: 0;
+    font-family: Arial, sans-serif;
 }
 nav{
     text-align: center;
     padding: 10px;
 }
 a{
-    background-color: white;
+    background-color: gray;
     color: black;
     font-size: 20px;
-    border: 1px solid gray;
-    border-radius: 5px;
     padding: 5px;
 }
 a:hover{
@@ -29,10 +28,10 @@ a:hover{
 div{
     width: 80%;
     margin: auto;
-    background-color: lightgray;
+    background-color: gray;
+    color: black;
     padding: 20px;
     border: 1px solid black;
-    border-radius: 20px;
 }
 footer{
     text-align: center;
