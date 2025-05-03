@@ -9,6 +9,7 @@ h1{
 }
 body{
     margin: 0;
+    font-family: Arial, sans-serif;
 }
 nav{
     text-align: center;
@@ -18,8 +19,6 @@ a{
     background-color: black;
     color: white;
     font-size: 20px;
-    border: 1px solid gray;
-    border-radius: 5px;
     padding: 5px;
 }
 a:hover{
@@ -29,10 +28,10 @@ a:hover{
 div{
     width: 80%;
     margin: auto;
-    background-color: lightgray;
+    background-color: black;
+    color: white;
     padding: 20px;
     border: 1px solid white;
-    border-radius: 20px;
 }
 footer{
     text-align: center;
