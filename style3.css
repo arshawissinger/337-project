@@ -1,5 +1,5 @@
 header{
-    background-color: green;
+    background-color: red;
     color: white;
     text-align: center;
     padding: 10px;
@@ -9,30 +9,29 @@ h1{
 }
 body{
     margin: 0;
+    font-family: Arial, sans-serif;
 }
 nav{
     text-align: center;
     padding: 10px;
 }
 a{
-    background-color: lightgreen;
+    background-color: red;
     color: white;
     font-size: 20px;
-    border: 1px solid green;
-    border-radius: 5px;
     padding: 5px;
 }
 a:hover{
     cursor: pointer;
-    background-color: green;
+    background-color: lightcoral;
 }
 div{
     width: 80%;
     margin: auto;
-    background-color: lightgray;
+    background-color: red;
+    color: white;
     padding: 20px;
     border: 1px solid black;
-    border-radius: 20px;
 }
 footer{
     text-align: center;
