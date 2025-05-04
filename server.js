@@ -79,12 +79,14 @@ app.get('/source.js', function(req, res){
     res.sendFile(path.join(publicFolder, 'source.js'))
 })
 
-function findPromise(studentName, courseName){
-    // takes student name  and course name, adds them to userAndCourse
+function findPromise(courseName){
+    var studentName = loggedUser[0] // will only work if logged in
+    // takes student name and course name, adds them to userAndCourse
     // this entails finding student in users.txt, finding the course in courses.txt
     // and saving the two as vars, combine them into one object, JSON, even a string
     // or array and store them in userAndCourse.txt. will be called in view_logged.html
     // so we can display courses in <p> tag
+    
 }
 
 function insertPromise(courseObj){
