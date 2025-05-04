@@ -37,6 +37,8 @@ function checkLogin(username, password){
     return false
 }
 
+var loggedUser = null;
+
 function checkAdmin(username){
     for(var i=0;i<userList.length;i++){
         var user = userList[i]
@@ -73,19 +75,20 @@ app.post('/home', express.json(), function(req, res){
         res.sendFile(path.join(publicFolder, 'home.html'))
     }
 })
-app.get('/getCourses', function(req, res){
-    // TODO
-})
 app.get('/source.js', function(req, res){
     res.sendFile(path.join(publicFolder, 'source.js'))
 })
 
-function findPromise(){
-    // TODO
+function findPromise(studentName, courseName){
+    // takes student name  and course name, adds them to userAndCourse
+    // this entails finding student in users.txt, finding the course in courses.txt
+    // and saving the two as vars, combine them into one object, JSON, even a string
+    // or array and store them in userAndCourse.txt. will be called in view_logged.html
+    // so we can display courses in <p> tag
 }
 
-function insertPromise(){
-    // TODO
+function insertPromise(courseObj){
+    // have courseObj added to courses.txt
 }
 
 app.post('/manage', express.json(), function(req, res){
@@ -100,15 +103,27 @@ app.post('/mng_action', express.urlencoded({'extended':true}), function(req, res
             'coursename':req.body.coursename,
             'description':req.body.description
         }
-        insertPromise('courses', courseDoc)
+        insertPromise(courseDoc)
     }catch(err){
         console.log(err)
         return;
     }
-    res.send('Inserting the course ...')
+    res.sendFile(path.join(publicFolder, 'mng_action.html'))
 })
-app.post('/view', express.urlencoded({'extended':true}), function(req, res){
-    res.sendFile(path.join(publicFolder, 'view.html'))
+app.post('/view', express.urlencoded({'extended': true }), function(req, res){
+    // view.html and view_logged.html dont do anything, we need to implement
+    // function to display courses
+    // must implement add course logic within view and view_logged.html, can
+    // display chosen courses below or avalible if not logged in
+    if (loggedUser==null){
+        res.sendFile(path.join(publicFolder, 'view.html'))
+    } else {
+        if (checkAdmin(loggedUser[0])){
+            res.sendFile(path.join(publicFolder, 'view.html'))
+        } else {
+            res.sendFile(path.join(publicFolder, 'view_logged.html'))
+        }
+    }
 })
 app.post('/create_user', express.json(), function(req, res){
     res.sendFile(path.join(publicFolder, 'create_user.html'))
@@ -133,6 +148,7 @@ app.post('/login', express.json(), function(req, res){
 })
 app.post('/lgn_action', express.urlencoded({'extended':true}), function(req, res){
     if(checkLogin(req.body.username, req.body.password)){
+        loggedUser=[req.body.username, req.body.password]
         res.sendFile(path.join(publicFolder, 'lgn_action.html'))
     }
     else{
