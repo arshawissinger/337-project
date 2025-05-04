@@ -112,9 +112,11 @@ app.post('/mng_action', express.urlencoded({'extended':true}), function(req, res
 })
 app.post('/view', express.urlencoded({'extended': true }), function(req, res){
     // view.html and view_logged.html dont do anything, we need to implement
-    // function to display courses
-    // must implement add course logic within view and view_logged.html, can
-    // display chosen courses below or avalible if not logged in
+    // functionality
+    // must implement add course as a student logic within view_logged.html
+    // along with showing courses that the student already enrolled in .
+    // for view.html it just needs to read courses.txt and display all active
+    // courses in the <p> tag in a decent looking way.
     if (loggedUser==null){
         res.sendFile(path.join(publicFolder, 'view.html'))
     } else {
