@@ -208,5 +208,42 @@ app.post('/lgn_action', express.urlencoded({'extended':true}), function(req, res
     }
 })
 
+app.get('/getCourses', (req, res) => {
+    if (loggedUser != null && !checkAdmin(loggedUser[0])){
+        //findPromise('Math')
+        console.log(loggedUser[0])
+        console.log(loggedUser)
+        var content = fs.readFileSync(path.resolve(__dirname, 'userAndCourse.txt'), 'utf8');
+        var lines = content.split('\n').filter(line => line.trim());
+        var filteredCourses = [];
+
+        for (let line of lines) {
+            try {
+                var entry = JSON.parse(line);
+                if (entry.student.username == loggedUser[0]) {
+                    filteredCourses.push(entry.course);
+                }
+            } catch (err) {
+                console.error("Invalid entry in userAndCourse.txt:", err.message);
+            }
+        }
+
+        res.json(filteredCourses);
+        return
+    }
+    else{
+        var filePath = path.resolve(__dirname, 'courses.txt')
+        try {
+            var content = fs.readFileSync(filePath, 'utf8');
+            var lines = content.split('\n').filter(line => line.trim())
+            var courses = lines.map(line => JSON.parse(line))
+            res.json(courses);
+        } catch (err) {
+            console.error("Failed to read courses.txt", err)
+            res.status(500).json({ error: 'Failed to load courses' })
+        }
+    }
+    
+})
 app.listen(3000, function(){})
 

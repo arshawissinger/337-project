@@ -50,11 +50,21 @@ function getCourses(){
     .then(function(res){
         return res.json()
     })
-    .then(function(docs){
-        var p = document.getElementById('my_p')
-        p.innerHTML = JSON.stringify(docs)
+    .then(docs =>{
+        const p = document.getElementById('my_p');
+        p.innerHTML = "<h1> All Courses</h1>";
+
+        docs.forEach(course => {
+            p.innerHTML += `
+                <div>
+                    <h2>${course.coursename}</h2>
+                    <p>ID: ${course.courseid}</p>
+                    <p>${course.description}</p>
+                </div>
+            `;
+        });
     })
-    .catch(function(err){
-        console.log(err)
-    })
+    .catch(err => {
+        document.getElementById('my_p').innerText = "Error loading courses.";
+    });
 }
