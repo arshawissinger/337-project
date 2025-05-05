@@ -80,19 +80,58 @@ app.get('/source.js', function(req, res){
 })
 
 function findPromise(courseName){
+    // combines student if they exist and course if it exists into one object
+    // with student: (userObj), course:(courseObj) into userAndCourse
+    // will be called in view_logged.html so we can display courses in <p> tag
     var studentName = loggedUser[0] // will only work if logged in
-    // takes student name and course name, adds them to userAndCourse
-    // this entails finding student in users.txt, finding the course in courses.txt
-    // and saving the two as vars, combine them into one object, JSON, even a string
-    // or array and store them in userAndCourse.txt. will be called in view_logged.html
-    // so we can display courses in <p> tag
-    
+    var student = null
+    var course = null
+    if (!studentName){
+        return false
+    }
+    userList = loadUsers() // reload user list to make sure new users aren't missed
+    for (var i=0;i<userList.length;i++){
+        var user = userList[i]
+        if (user.username == studentName){
+            student = user
+            break
+        }
+    }
+    if (!student) {
+        console.error("Student not found in users");
+        return false;
+    }
+    var courses = fs.readFileSync(path.resolve(__dirname, 'courses.txt'), {'encoding':'utf8'})
+    var courseList = courses.trim().split('\n')
+    for (var i = 0; i < courseList.length; i++) {
+        if (!courseList[i].trim()) continue;
+        try {
+            var courseObj = JSON.parse(courseList[i]);
+            if (courseObj.coursename == courseName) {
+                course = courseObj;
+                break;
+            }
+        } catch (err) {
+            console.error("Invalid course line:", i);
+        }
+    }
+    if (!course) {
+        console.error("Course not found in course.txt");
+        return false;
+    }
+    try{
+        var obj = {'student':student, 'course':course}
+        fs.appendFileSync(path.resolve(__dirname, 'userAndCourse.txt'), JSON.stringify(obj) + '\n');
+    }
+    catch(err){
+        console.log(err)
+    }
+    return true
 }
 
 function insertPromise(courseObj){
     // have courseObj added to courses.txt
-    const jsonStr = JSON.stringify(courseObj, null, 2)
-    fs.writeFile(path.resolve(__dirname, 'courses.txt'), jsonStr, (err) => {
+    fs.appendFile(path.resolve(__dirname, 'courses.txt'), JSON.stringify(courseObj) + '\n', (err) => {
         if(err){
             console.error("An error occured:", err);
         }
