@@ -91,6 +91,15 @@ function findPromise(courseName){
 
 function insertPromise(courseObj){
     // have courseObj added to courses.txt
+    const jsonStr = JSON.stringify(courseObj, null, 2)
+    fs.writeFile(path.resolve(__dirname, 'courses.txt'), jsonStr, (err) => {
+        if(err){
+            console.error("An error occured:", err);
+        }
+        else {
+            console.log("Object was written to file!")
+        }
+    });
 }
 
 app.post('/manage', express.json(), function(req, res){
