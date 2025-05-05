@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="source.js"></script>
+        <link rel="stylesheet" href="style1.css">
+        <script>
+            var savedTheme=localStorage.getItem('theme')
+            if (savedTheme){
+                var link=document.getElementsByTagName('link')[0]
+                if (link){
+                    link.href=savedTheme
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <header>
+            <h1>The University Website</h1>
+            <p>A website for user and course management</p>
+        </header>
+        <nav>
+            <a onclick="sendReq('home')">Home</a>
+            <a onclick="sendReq('create_user')">Create user</a>
+            <a onclick="sendReq('login')">Login</a>
+            <a onclick="sendReq('view')">View courses</a>
+            <select onchange="switchTheme(this.value)" style="margin-left: 15px;">
+                <option value="style1.css">Light</option>
+                <option value="style2.css">Dark</option>
+                <option value="style3.css">UofA</option>
+            </select>
+        </nav>
+        <div>
+            <p>You have been logged out!</p>
+        </div>
+    </body>
+</html>
