@@ -210,9 +210,6 @@ app.post('/lgn_action', express.urlencoded({'extended':true}), function(req, res
 
 app.get('/getCourses', (req, res) => {
     if (loggedUser != null && !checkAdmin(loggedUser[0])){
-        //findPromise('Math')
-        console.log(loggedUser[0])
-        console.log(loggedUser)
         var content = fs.readFileSync(path.resolve(__dirname, 'userAndCourse.txt'), 'utf8');
         var lines = content.split('\n').filter(line => line.trim());
         var filteredCourses = [];
