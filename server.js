@@ -68,11 +68,14 @@ app.get('/style3.css', function(req, res){
     res.sendFile(path.join(publicFolder, 'style3.css'))
 })
 app.post('/home', express.json(), function(req, res){
-    if(checkAdmin(req.body.username)){
+    if(checkAdmin(req.body.username) && loggedUser!=null){
         res.sendFile(path.join(publicFolder, 'home_admin.html'))
-    }
-    else{
-        res.sendFile(path.join(publicFolder, 'home.html'))
+    }else{
+        if (loggedUser!=null){
+            res.sendFile(path.join(publicFolder, 'home_student.html'))
+        } else {
+            res.sendFile(path.join(publicFolder, 'home.html'))
+        }
     }
 })
 app.get('/source.js', function(req, res){
@@ -80,16 +83,13 @@ app.get('/source.js', function(req, res){
 })
 
 function findPromise(courseName){
-    // combines student if they exist and course if it exists into one object
-    // with student: (userObj), course:(courseObj) into userAndCourse
-    // will be called in view_logged.html so we can display courses in <p> tag
-    var studentName = loggedUser[0] // will only work if logged in
+    var studentName = loggedUser[0]
     var student = null
     var course = null
     if (!studentName){
         return false
     }
-    userList = loadUsers() // reload user list to make sure new users aren't missed
+    userList = loadUsers()
     for (var i=0;i<userList.length;i++){
         var user = userList[i]
         if (user.username == studentName){
@@ -130,7 +130,6 @@ function findPromise(courseName){
 }
 
 function insertPromise(courseObj){
-    // have courseObj added to courses.txt
     fs.appendFile(path.resolve(__dirname, 'courses.txt'), JSON.stringify(courseObj) + '\n', (err) => {
         if(err){
             console.error("An error occured:", err);
@@ -161,12 +160,6 @@ app.post('/mng_action', express.urlencoded({'extended':true}), function(req, res
     res.sendFile(path.join(publicFolder, 'mng_action.html'))
 })
 app.post('/view', express.urlencoded({'extended': true }), function(req, res){
-    // view.html and view_logged.html dont do anything, we need to implement
-    // functionality
-    // must implement add course as a student logic within view_logged.html
-    // along with showing courses that the student already enrolled in .
-    // for view.html it just needs to read courses.txt and display all active
-    // courses in the <p> tag in a decent looking way.
     if (loggedUser==null){
         res.sendFile(path.join(publicFolder, 'view.html'))
     } else {
@@ -179,6 +172,10 @@ app.post('/view', express.urlencoded({'extended': true }), function(req, res){
 })
 app.post('/create_user', express.json(), function(req, res){
     res.sendFile(path.join(publicFolder, 'create_user.html'))
+})
+app.post('/logged_out', express.json(), function(req, res){
+    loggedUser=null
+    res.sendFile(path.join(publicFolder, 'logged_out.html'))
 })
 app.post('/create_action', express.urlencoded({'extended':true}), function(req, res){
     var hashedPass = crypto.createHash('sha256').update(req.body.password).digest('hex')
@@ -243,4 +240,3 @@ app.get('/getCourses', (req, res) => {
     
 })
 app.listen(3000, function(){})
-
