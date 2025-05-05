@@ -51,8 +51,7 @@ function getCourses(){
         return res.json()
     })
     .then(docs =>{
-        const p = document.getElementById('my_p');
-        p.innerHTML = "<h1> All Courses</h1>";
+        var p = document.getElementById('my_p');
 
         docs.forEach(course => {
             p.innerHTML += `
