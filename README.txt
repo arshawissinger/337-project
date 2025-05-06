@@ -1,7 +1,8 @@
 +++ READ ME PROJECT INSTRUCTIONS +++
 
-To run this project you will want to run server.js and then connect to the locally hosted server via localhost:3000, 
-as the server uses port 3000. The webpage is served via Express.js, which is the hosting method we chose to serve our modules. Once on the website the user 
+To run this project you will want to navigate to the directory containing project files. You will then type 'node server.js' in 
+powershell or terminal (assuming express is installed). After the server is running, open your browser and type 'localhost:3000' to connect to the website.
+The webpage is served via Express.js, which is the hosting method we chose to serve our modules. Once on the website the user 
 can then create a new account through the create user button on the toolbar at the top of the website or login as an existing user. 
 For the purposes of testing there are two pre-existing users, username: Mark, password: 111, as a student account, and username: Admin, password: 1234, as an administrator account. 
 These accounts can be accessed to demonstrate website functionality such as viewing courses the user is enrolled in, as well as selecting
