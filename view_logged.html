@@ -13,7 +13,7 @@
             }
         </script>
     </head>
-    <body onload="getCourses()">
+    <body onload="getCourses();enrollCourses()">
         <header>
             <h1>The University Website</h1>
             <p>A website for user and course management</p>
@@ -31,7 +31,12 @@
         </nav>
         <div>
             <form><!-- COURSE ENROLLMENT LOGIC --></form>
-            <p id="my_p">Your enrolled courses: </p>
+            <p id="my_p">Your enrolled courses:</p>
+        </div>
+        <div>
+            <h2>Enroll in New Courses</h2>
+            <form id = "enroll" method="POST" action="enroll_action">
+            </form>
         </div>
     </body>
 </html>

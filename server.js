@@ -239,4 +239,51 @@ app.get('/getCourses', (req, res) => {
     }
     
 })
+
+app.get('/enrollCourses', (req, res) => {
+    var content = fs.readFileSync(path.resolve(__dirname, 'userAndCourse.txt'), 'utf8');
+    var courses = fs.readFileSync(path.resolve(__dirname, 'courses.txt'), {'encoding':'utf8'})
+    var courseList = courses.trim().split('\n')
+    var lines = content.split('\n').filter(line => line.trim());
+    var filteredCourses = [];
+    for(let course of courseList){
+        if (!course.trim()) continue;
+        var notInCourse = true
+        var courseObj = JSON.parse(course);
+        for (let line of lines) {
+            try {
+                var entry = JSON.parse(line);
+                if (courseObj.coursename == entry.course.coursename && entry.student.username == loggedUser[0]) {
+                    notInCourse = false
+                    break
+                }
+            } catch (err) {
+                console.error("Invalid course line:", courseObj.coursename);
+            }
+            
+        }
+        if(notInCourse){
+            filteredCourses.push(courseObj);
+        }
+    }
+
+    res.json(filteredCourses);
+    return
+})
+
+app.post('/enroll_action', express.urlencoded({'extended':true}), function(req, res){
+    try {
+        var selected = req.body.coursename;
+        var selectedCourses = Array.isArray(selected) ? selected : [selected];
+        
+        for (var courseName of selectedCourses) {
+            findPromise(courseName)
+        }
+    } catch (err) {
+        console.log(err);
+        return
+    }
+    res.sendFile(path.join(publicFolder, 'view_logged.html'))
+})
+
 app.listen(3000, function(){})

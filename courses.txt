@@ -1,0 +1,5 @@
+{"courseid":"1","coursename":"Easy Math","description":"an easy math class"}
+{"courseid":"2","coursename":"Hard Math","description":"a very hard math class"}
+{"courseid":"3","coursename":"Science","description":"A science class"}
+{"courseid":"4","coursename":"CS Intro","description":"introduction to computer science"}
+{"courseid":"5","coursename":"English","description":"Basic English class"}

@@ -67,3 +67,24 @@ function getCourses(){
         document.getElementById('my_p').innerText = "Error loading courses.";
     });
 }
+
+function enrollCourses(){
+    fetch('enrollCourses')
+    .then(function(res){
+        return res.json()
+    })
+    .then(docs =>{
+        var p = document.getElementById('enroll');
+
+        docs.forEach(course => {
+            p.innerHTML += `
+                <input type="checkbox" name="coursename" value="${course.coursename}">${course.coursename}</input>
+                <p>${course.description}</p>   
+            `;
+        });
+        p.innerHTML+= '<input type="submit"></input>'
+    })
+    .catch(err => {
+        document.getElementById('enroll').innerText = "Error loading courses.";
+    });
+}
